@@ -28,6 +28,7 @@ export const PRODUCTS: Product[] = [
   { id: 'detergent', name: 'Средство для посуды', shortName: 'Для посуды', category: 'household', icon: '🧴', color: 0x58a7a0 },
   { id: 'powder', name: 'Стиральный порошок', shortName: 'Порошок', category: 'household', icon: '🧺', color: 0x5b7dbd },
   { id: 'sponges', name: 'Губки', shortName: 'Губки', category: 'household', icon: '🧽', color: 0xe0b33e },
+  { id: 'batteries', name: 'Батарейки', shortName: 'Батарейки', category: 'household', icon: '🔋', color: 0x4f6f92 },
 
   { id: 'dumplings', name: 'Пельмени', shortName: 'Пельмени', category: 'frozen', icon: '🥟', color: 0x5f83b9 },
   { id: 'berries', name: 'Ягоды замороженные', shortName: 'Ягоды', category: 'frozen', icon: '🫐', color: 0x72579f },
