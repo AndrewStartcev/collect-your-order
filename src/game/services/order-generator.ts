@@ -1,6 +1,23 @@
 import { PRODUCTS } from '../data/products';
 import type { Order, OrderLine, Product } from '../types';
 
+const PRODUCTION_PRODUCT_IDS = new Set([
+  'milk',
+  'kefir',
+  'banana',
+  'apple',
+  'rice',
+  'paper',
+  'dumplings',
+  'berries',
+  'chocolate',
+  'detergent',
+  'shampoo',
+  'batteries',
+]);
+
+const PRODUCTION_PRODUCTS = PRODUCTS.filter((product) => PRODUCTION_PRODUCT_IDS.has(product.id));
+
 function shuffle<T>(items: T[]): T[] {
   const result = [...items];
   for (let i = result.length - 1; i > 0; i -= 1) {
@@ -14,13 +31,22 @@ function clamp(value: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, value));
 }
 
-export function generateOrder(orderId: number, completedOrders: number): Order {
-  const lineCount = clamp(3 + Math.floor(completedOrders / 7), 3, 5);
-  const quantityMax = completedOrders >= 8 ? 2 : 1;
-  const chosen = shuffle(PRODUCTS).slice(0, lineCount);
+function hasReplacement(product: Product): boolean {
+  return PRODUCTION_PRODUCTS.some(
+    (candidate) => candidate.id !== product.id && candidate.category === product.category,
+  );
+}
 
-  const unavailableIndex = completedOrders >= 3 && Math.random() < 0.28
-    ? Math.floor(Math.random() * chosen.length)
+export function generateOrder(orderId: number, completedOrders: number): Order {
+  const lineCount = clamp(3 + Math.floor(completedOrders / 8), 3, 5);
+  const quantityMax = completedOrders >= 7 ? 2 : 1;
+  const chosen = shuffle(PRODUCTION_PRODUCTS).slice(0, lineCount);
+
+  const replaceableIndexes = chosen
+    .map((product, index) => (hasReplacement(product) ? index : -1))
+    .filter((index) => index >= 0);
+  const unavailableIndex = completedOrders >= 3 && replaceableIndexes.length > 0 && Math.random() < 0.28
+    ? replaceableIndexes[Math.floor(Math.random() * replaceableIndexes.length)]
     : -1;
 
   const lines: OrderLine[] = chosen.map((product, index) => ({
@@ -39,33 +65,23 @@ export function generateOrder(orderId: number, completedOrders: number): Order {
   if (unavailableIndex >= 0) {
     const unavailableProduct = chosen[unavailableIndex];
     const alternatives = shuffle(
-      PRODUCTS.filter(
+      PRODUCTION_PRODUCTS.filter(
         (product) =>
           product.category === unavailableProduct.category &&
           product.id !== unavailableProduct.id &&
-          !chosen.some((required) => required.id === product.id) &&
           !blockedIds.has(product.id),
       ),
     );
-
     if (alternatives[0]) shelfIds.add(alternatives[0].id);
   }
 
-  const distractors: Product[] = shuffle(
-    PRODUCTS.filter((product) => !blockedIds.has(product.id) && !shelfIds.has(product.id)),
+  const distractors = shuffle(
+    PRODUCTION_PRODUCTS.filter((product) => !blockedIds.has(product.id) && !shelfIds.has(product.id)),
   );
+  for (const product of distractors) shelfIds.add(product.id);
 
-  for (const product of distractors) {
-    if (shelfIds.size >= 20) break;
-    shelfIds.add(product.id);
-  }
-
-  // Defensive final filter: an unavailable ordered product must never be physically
-  // present on the shelf. This keeps the replacement mechanic honest even if shelf
-  // population logic changes later.
   const shelfProductIds = shuffle([...shelfIds]).filter((productId) => !blockedIds.has(productId));
-
-  const timeLimitSec = clamp(100 + lineCount * 4 - Math.floor(completedOrders / 3) * 4, 55, 110);
+  const timeLimitSec = clamp(105 + lineCount * 4 - Math.floor(completedOrders / 4) * 4, 60, 115);
 
   return {
     id: orderId,
