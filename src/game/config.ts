@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import './scenes/production-v2-patch';
 import { ProductionGameSceneV2 } from './scenes/ProductionGameSceneV2';
 
 export const gameConfig: Phaser.Types.Core.GameConfig = {
