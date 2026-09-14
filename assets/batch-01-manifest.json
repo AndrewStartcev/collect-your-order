@@ -45,24 +45,6 @@
     "generator": "built-in ImageGen"
   },
   {
-    "path": "assets/ui/order-panel.png",
-    "w": 350,
-    "h": 750,
-    "mode": "stretch",
-    "prompt": "Use case: stylized-concept. ONE isolated production sprite for cozy warehouse order-picking casual game. Modern clean pixel-art / pixel-inspired, crisp intentional pixel clusters, dark navy outlines, bright readable colors, warm light from upper left. No real brands, no text, no letters, no numbers, no watermark, no backdrop or checkerboard. Genuine transparent PNG alpha outside object. ONE blank tall order clipboard panel, target350x750 aspect 7:15. Dark navy game UI frame with modest blue steel bevel, small metal clip centered at top, large uniform deep navy inset usable for programmatic text. Frame follows canvas edges, 6px outer transparent margin at target. NO rows, NO buttons, NO text, NO icons, no content. Stylish substantial casual game prop, restrained warm edge highlight.",
-    "sourceFile": "exec-cee2cd15-7e9b-45c2-a51c-97a3f0e22658.png",
-    "generator": "built-in ImageGen"
-  },
-  {
-    "path": "assets/ui/phone-frame.png",
-    "w": 360,
-    "h": 750,
-    "mode": "stretch",
-    "prompt": "Use case: stylized-concept. ONE isolated production sprite for cozy warehouse order-picking casual game. Modern clean pixel-art / pixel-inspired, crisp intentional pixel clusters, dark navy outlines, bright readable colors, warm light from upper left. No real brands, no text, no letters, no numbers, no watermark, no backdrop or checkerboard. Genuine transparent PNG alpha outside object. ONE tall smartphone housing, front orthographic, target360x750. Dark navy and blue steel rugged rounded body, thin bevel, small earpiece at top, no camera protrusion. Large empty uniform deep navy screen for programmatic game UI, inner safe area x24..336 y50..706 relative target360x750. No interface, no buttons inside screen, no text or icons or numbers. Outer silhouette almost fills canvas with 4px margin.",
-    "sourceFile": "exec-97190a84-3574-4742-bc7d-109158675203.png",
-    "generator": "built-in ImageGen"
-  },
-  {
     "path": "assets/ui/button-primary.png",
     "w": 300,
     "h": 72,
@@ -241,5 +223,35 @@
     "prompt": "Generate ONE OPAQUE texture asset for a modern clean pixel-art cozy warehouse game. Wide 4:1 canvas, target512x128. Flat full-frame warm gray concrete floor strip, very low contrast, large clean calm areas, one thin straight horizontal joint across entire width. NO objects, no shadows, no vertical joints, no markings, no writing. Seamlessly repeatable horizontally. The left and right edges must be visually identical. This is a FULL CANVAS TEXTURE: absolutely NO TRANSPARENCY ANYWHERE, all pixels opaque, including corners. Do not remove background; the concrete is the image. No checkerboard, no vignette, no edge fading. Opaque RGB PNG.",
     "sourceFile": "exec-a65edd29-7e9c-488e-8ddb-7e60333c8a6c.png",
     "generator": "built-in ImageGen"
+  },
+  {
+    "path": "assets/ui/order-panel.png",
+    "w": 350,
+    "h": 750,
+    "mode": "frame",
+    "prompt": "Create a replacement production blank order clipboard for a clean modern pixel-inspired casual grocery game. Target canvas350x750 portrait. Entire clipboard fills canvas, straight front orthographic view. Almost entire area is UNIFORM WARM CREAM paper #f0e7d5, fully opaque, calm flat blank writing area. Very thin dark navy perimeter frame only, 6px at target, slight warm edge. A SMALL simple flat dark metal clip centered at top, maximum55px wide and18px high at target; NO giant ring, NO ornate bolts, NO large metal corners. Subtle clipped corners radius8px. Clear cream area at least x14..336 y30..732 of target. Tiny dimensional bevel only; crisp pixel clusters and restrained upper-left lighting. No text, no lines, no buttons, no icons, no rows. Transparent ONLY outside clipboard silhouette, solid opaque paper interior. One asset.",
+    "sourceFile": "exec-3fb4bb98-fbe7-4d7e-a808-1b8e1e292b10.png",
+    "generator": "built-in ImageGen",
+    "revision": "Batch 01.1"
+  },
+  {
+    "path": "assets/ui/phone-frame.png",
+    "w": 360,
+    "h": 750,
+    "mode": "frame",
+    "prompt": "Create one lightweight modern smartphone frame production asset for clean pixel-inspired casual grocery game. Target360x750 portrait, flat orthographic front. Thin DARK NAVY outer body, NO rugged armor, NO thick metal, NO protruding side buttons. Fine understated blue edge highlight, no chrome glare. Frame thickness ONLY8px on sides at target, top18px and bottom12px. Large uniform opaque navy screen #122238 occupying almost entire phone. Screen safe region x16..344,y28..726. Small discreet earpiece centered in top rim, no notch. Modest rounded corners radius20px at target. Fully blank screen: no interface, text, icons, numbers, symbols. Transparent only outside rounded outer silhouette; inside solid opaque. Overall restrained light visual weight. One isolated asset.",
+    "sourceFile": "exec-fc05cce7-172f-47d7-9365-fb30e3e9a6cd.png",
+    "generator": "built-in ImageGen",
+    "revision": "Batch 01.1"
+  },
+  {
+    "path": "assets/environment/warehouse-backdrop.png",
+    "w": 1600,
+    "h": 900,
+    "mode": "stretch",
+    "prompt": "ONE separate background artwork for a modern clean pixel-art/pixel-inspired casual warehouse order picking game. FULL OPAQUE landscape canvas1600x900,16:9. Warm modern darkstore interior with distant steel shelving and anonymous plain cardboard boxes reduced to soft background forms, ceiling rafters and warm amber hanging lights. Quiet low-contrast desaturated navy-gray center behind gameplay shelves: center x396..1194 y126..876 must be dark subdued with no bright fixtures or strong perspective lines. Warm pools of light and depth mainly at far left/right edges and along top; concrete floor in lower quarter. Sophisticated cozy commercial casual game atmosphere, restrained subtle pixel clusters, slight depth softness. No foreground objects, no people, no carts, no UI, no panels, no products, no packaging, no readable text, no brands, no posters, no notes, no mugs, no signs, no labels on boxes. This is BACKGROUND atmosphere only, not a gameplay scene or complete screenshot. Entire image fully opaque including corners, no alpha, no vignette transparency.",
+    "sourceFile": "exec-17bb7b2f-e9fa-495a-b93d-ff15863c47b5.png",
+    "generator": "built-in ImageGen",
+    "revision": "Batch 01.1"
   }
 ]

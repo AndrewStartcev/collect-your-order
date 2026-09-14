@@ -92,42 +92,6 @@
       "bytes": 27684
     },
     {
-      "path": "assets/ui/order-panel.png",
-      "size": [
-        350,
-        750
-      ],
-      "alpha": [
-        0,
-        255
-      ],
-      "bounds": [
-        0,
-        4,
-        350,
-        745
-      ],
-      "bytes": 239067
-    },
-    {
-      "path": "assets/ui/phone-frame.png",
-      "size": [
-        360,
-        750
-      ],
-      "alpha": [
-        0,
-        255
-      ],
-      "bounds": [
-        6,
-        6,
-        353,
-        743
-      ],
-      "bytes": 228002
-    },
-    {
       "path": "assets/ui/button-primary.png",
       "size": [
         300,
@@ -486,6 +450,60 @@
         128
       ],
       "bytes": 87757
+    },
+    {
+      "path": "assets/ui/order-panel.png",
+      "size": [
+        350,
+        750
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bounds": [
+        3,
+        3,
+        347,
+        747
+      ],
+      "bytes": 227919
+    },
+    {
+      "path": "assets/ui/phone-frame.png",
+      "size": [
+        360,
+        750
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bounds": [
+        3,
+        3,
+        357,
+        747
+      ],
+      "bytes": 227960
+    },
+    {
+      "path": "assets/environment/warehouse-backdrop.png",
+      "size": [
+        1600,
+        900
+      ],
+      "alpha": [
+        255,
+        255
+      ],
+      "bounds": [
+        0,
+        0,
+        1600,
+        900
+      ],
+      "bytes": 1273623
     }
   ]
 }
