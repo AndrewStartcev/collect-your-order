@@ -8,24 +8,19 @@ import { loadProgress, saveProgress } from '../services/save';
 import type { Cart, Order, OrderResult, Progress } from '../types';
 
 const COLORS = {
-  navy: 0x13243a,
-  navyDark: 0x0d1929,
-  navySoft: 0x1b314d,
-  cream: 0xf0e7d5,
-  creamRow: 0xf7f0e3,
-  textDark: '#17304f',
-  text: '#f4f7fb',
-  muted: '#91a4bc',
-  green: '#39d27d',
-  red: '#ff7474',
+  navy: 0x12243a,
+  navySoft: 0x1c3553,
+  navyDark: 0x0b1727,
+  creamRow: 0xf8f1e4,
+  text: '#f5f8fc',
+  textDark: '#18304e',
+  muted: '#93a7bf',
+  green: '#36d27a',
+  red: '#e05a5a',
   yellow: '#ffd15a',
-  cyan: '#2bc2ea',
+  cyan: 0x2bc2ea,
 };
 
-// IMPORTANT: keep every asset URL as a static literal. Vite can transform these
-// into real dev/build asset URLs. A dynamic helper around new URL() leaves
-// ../../../assets/... unresolved in the browser and Phaser receives HTML instead
-// of PNG data, which produces the green missing-texture placeholders.
 const ASSET_URLS = {
   warehouseBackdrop: new URL('../../../assets/environment/warehouse-backdrop.png', import.meta.url).href,
   shelfBay: new URL('../../../assets/environment/shelf-bay.png', import.meta.url).href,
@@ -71,6 +66,13 @@ const PRODUCT_TEXTURES: Record<string, string> = {
   batteries: 'product-batteries',
 };
 
+const SHELF_GROUPS = [
+  { title: 'МОЛОЧНЫЕ', categories: ['dairy'] },
+  { title: 'ОВОЩИ И ФРУКТЫ', categories: ['produce'] },
+  { title: 'БАКАЛЕЯ И СНЕКИ', categories: ['grocery', 'snacks'] },
+  { title: 'ДОМ И ЗАМОРОЗКА', categories: ['household', 'frozen'] },
+] as const;
+
 export class ProductionGameScene extends Phaser.Scene {
   private progress!: Progress;
   private order!: Order;
@@ -87,6 +89,9 @@ export class ProductionGameScene extends Phaser.Scene {
   private ratingText!: Phaser.GameObjects.Text;
   private xpFill!: Phaser.GameObjects.Rectangle;
   private pauseIcon!: Phaser.GameObjects.Image;
+  private workerSprite!: Phaser.GameObjects.Image;
+  private cartSprite!: Phaser.GameObjects.Image;
+  private cartCountText!: Phaser.GameObjects.Text;
 
   private orderLayer!: Phaser.GameObjects.Container;
   private shelfLayer!: Phaser.GameObjects.Container;
@@ -133,10 +138,10 @@ export class ProductionGameScene extends Phaser.Scene {
     this.progress = loadProgress();
     this.drawStaticLayout();
 
-    this.orderLayer = this.add.container(0, 0).setDepth(20);
-    this.shelfLayer = this.add.container(0, 0).setDepth(15);
-    this.cartLayer = this.add.container(0, 0).setDepth(18);
-    this.phoneLayer = this.add.container(0, 0).setDepth(20);
+    this.orderLayer = this.add.container(0, 0).setDepth(40);
+    this.shelfLayer = this.add.container(0, 0).setDepth(20);
+    this.cartLayer = this.add.container(0, 0).setDepth(34);
+    this.phoneLayer = this.add.container(0, 0).setDepth(40);
 
     this.startNextOrder();
   }
@@ -155,44 +160,62 @@ export class ProductionGameScene extends Phaser.Scene {
 
   private drawStaticLayout(): void {
     this.add.image(800, 450, 'warehouse-backdrop').setDisplaySize(1600, 900).setDepth(0);
-    this.add.rectangle(0, 0, 1600, 900, 0x07111f, 0.14).setOrigin(0).setDepth(1);
+    this.add.rectangle(0, 0, 1600, 900, 0x07111f, 0.06).setOrigin(0).setDepth(1);
 
-    this.add.image(24, 126, 'order-panel').setOrigin(0).setDisplaySize(350, 750).setDepth(10);
-    this.add.image(1216, 126, 'phone-frame').setOrigin(0).setDisplaySize(360, 750).setDepth(10);
+    // UI frames are intentionally secondary to the warehouse world.
+    this.add.image(22, 145, 'order-panel').setOrigin(0).setDisplaySize(390, 710).setDepth(30);
+    this.add.image(1280, 150, 'phone-frame').setOrigin(0).setDisplaySize(294, 705).setDepth(30);
 
-    this.headerCard(24, 18, 350, 86);
-    this.headerCard(580, 18, 280, 86);
-    this.headerCard(1080, 18, 210, 86);
-    this.headerCard(1310, 18, 170, 86);
+    this.headerCard(28, 18, 390, 82);
+    this.headerCard(620, 18, 270, 82);
+    this.headerCard(1128, 18, 190, 82);
+    this.headerCard(1332, 18, 128, 82);
 
-    this.rankText = this.add.text(48, 34, '', this.headerText(23)).setDepth(20);
-    this.xpFill = this.add.rectangle(48, 76, 0, 10, 0x2bc2ea, 1).setOrigin(0).setDepth(21);
-    this.add.rectangle(48, 76, 286, 10, 0x081727, 0.75).setOrigin(0).setDepth(20);
-    this.xpFill.setDepth(21);
+    // Small worker portrait substitutes a separate avatar asset for now.
+    this.add.image(61, 58, 'worker-idle').setDisplaySize(48, 64).setDepth(42);
+    this.rankText = this.add.text(93, 34, '', this.headerText(22)).setDepth(42);
+    this.add.rectangle(93, 71, 252, 10, 0x081727, 0.78).setOrigin(0).setDepth(41);
+    this.xpFill = this.add.rectangle(93, 71, 0, 10, COLORS.cyan, 1).setOrigin(0).setDepth(42);
 
-    this.add.image(610, 61, 'icon-clock').setDisplaySize(34, 34).setDepth(20);
-    this.timerText = this.add.text(648, 42, '', this.headerText(31)).setDepth(20);
+    this.add.image(652, 59, 'icon-clock').setDisplaySize(32, 32).setDepth(42);
+    this.timerText = this.add.text(684, 39, '', this.headerText(30)).setDepth(42);
 
-    this.add.image(1103, 61, 'icon-money').setDisplaySize(34, 34).setDepth(20);
-    this.moneyText = this.add.text(1132, 42, '', this.headerText(26)).setDepth(20);
+    this.add.image(1152, 59, 'icon-money').setDisplaySize(31, 31).setDepth(42);
+    this.moneyText = this.add.text(1178, 41, '', this.headerText(24)).setDepth(42);
 
-    this.add.image(1332, 61, 'icon-star').setDisplaySize(34, 34).setDepth(20);
-    this.ratingText = this.add.text(1364, 42, '', this.headerText(27)).setDepth(20);
+    this.add.image(1352, 59, 'icon-star').setDisplaySize(30, 30).setDepth(42);
+    this.ratingText = this.add.text(1376, 41, '', this.headerText(24)).setDepth(42);
 
-    const pauseHit = this.add.rectangle(1498, 18, 78, 86, COLORS.navy, 0.96)
+    const pauseHit = this.add.rectangle(1475, 18, 92, 82, COLORS.navy, 0.95)
       .setOrigin(0)
       .setStrokeStyle(2, 0x385675)
       .setInteractive({ useHandCursor: true })
-      .setDepth(18);
-    this.pauseIcon = this.add.image(1537, 60, 'icon-pause').setDisplaySize(36, 36).setDepth(20);
+      .setDepth(40);
+    this.pauseIcon = this.add.image(1521, 59, 'icon-pause').setDisplaySize(34, 34).setDepth(42);
     pauseHit.on('pointerup', () => this.togglePause());
+
+    // Player and cart live inside the warehouse, not in a separate dashboard panel.
+    this.workerSprite = this.add.image(846, 730, 'worker-idle')
+      .setDisplaySize(126, 168)
+      .setDepth(31);
+    this.cartSprite = this.add.image(1018, 742, 'cart')
+      .setDisplaySize(238, 172)
+      .setDepth(31);
+    this.cartCountText = this.add.text(935, 646, '', {
+      fontFamily: 'Arial, sans-serif',
+      fontSize: '16px',
+      color: '#ffffff',
+      fontStyle: 'bold',
+      backgroundColor: '#12243ad9',
+      padding: { x: 10, y: 6 },
+    }).setDepth(40);
   }
 
   private headerCard(x: number, y: number, width: number, height: number): void {
-    this.add.rectangle(x, y, width, height, COLORS.navy, 0.96)
+    this.add.rectangle(x, y, width, height, COLORS.navy, 0.94)
       .setOrigin(0)
       .setStrokeStyle(2, 0x385675)
-      .setDepth(18);
+      .setDepth(40);
   }
 
   private headerText(size: number): Phaser.Types.GameObjects.Text.TextStyle {
@@ -208,8 +231,9 @@ export class ProductionGameScene extends Phaser.Scene {
     if (!this.orderActive) return;
     this.isPaused = !this.isPaused;
     this.pauseIcon.setAlpha(this.isPaused ? 0.45 : 1);
-    this.shelfLayer.setAlpha(this.isPaused ? 0.42 : 1);
-    this.phoneLayer.setAlpha(this.isPaused ? 0.58 : 1);
+    this.shelfLayer.setAlpha(this.isPaused ? 0.4 : 1);
+    this.workerSprite.setAlpha(this.isPaused ? 0.45 : 1);
+    this.cartSprite.setAlpha(this.isPaused ? 0.45 : 1);
   }
 
   private startNextOrder(): void {
@@ -220,7 +244,8 @@ export class ProductionGameScene extends Phaser.Scene {
     this.isPaused = false;
     this.pauseIcon?.setAlpha(1);
     this.shelfLayer?.setAlpha(1);
-    this.phoneLayer?.setAlpha(1);
+    this.workerSprite?.setAlpha(1).setTexture('worker-idle').setPosition(846, 730);
+    this.cartSprite?.setAlpha(1);
     this.renderAll();
   }
 
@@ -244,7 +269,7 @@ export class ProductionGameScene extends Phaser.Scene {
     const ratio = nextRank
       ? Phaser.Math.Clamp((this.progress.xp - currentMin) / Math.max(1, nextMin - currentMin), 0, 1)
       : 1;
-    this.xpFill.width = 286 * ratio;
+    this.xpFill.width = 252 * ratio;
     this.updateTimerText();
   }
 
@@ -259,37 +284,43 @@ export class ProductionGameScene extends Phaser.Scene {
 
   private renderOrder(): void {
     this.orderLayer.removeAll(true);
-    this.orderLayer.add(this.add.text(48, 156, `ЗАКАЗ #${this.order.id}`, {
-      fontFamily: 'Arial, sans-serif', fontSize: '27px', color: COLORS.textDark, fontStyle: 'bold',
+    this.orderLayer.add(this.add.text(47, 171, `ЗАКАЗ #${this.order.id}`, {
+      fontFamily: 'Arial, sans-serif',
+      fontSize: '27px',
+      color: COLORS.textDark,
+      fontStyle: 'bold',
     }));
 
     this.order.lines.forEach((line, index) => {
       const product = PRODUCT_BY_ID.get(line.productId);
       if (!product) return;
-      const y = 208 + index * 82;
-      const row = this.add.rectangle(44, y, 310, 68, COLORS.creamRow, 0.95)
+      const y = 223 + index * 80;
+      const row = this.add.rectangle(41, y, 350, 66, COLORS.creamRow, 0.96)
         .setOrigin(0)
         .setStrokeStyle(1, 0xd3c5ad);
       this.orderLayer.add(row);
-      this.addProductVisual(this.orderLayer, line.productId, 75, y + 34, 54);
+      this.addProductVisual(this.orderLayer, line.productId, 76, y + 33, 52);
 
-      this.orderLayer.add(this.add.text(108, y + 12, product.name, {
+      this.orderLayer.add(this.add.text(111, y + 11, product.name, {
         fontFamily: 'Arial, sans-serif',
-        fontSize: product.name.length > 17 ? '16px' : '18px',
+        fontSize: product.name.length > 18 ? '15px' : '18px',
         color: COLORS.textDark,
         fontStyle: 'bold',
-        wordWrap: { width: 154 },
+        wordWrap: { width: 190 },
       }));
 
       if (line.unavailable) {
-        this.orderLayer.add(this.add.text(334, y + 24, 'НЕТ', {
-          fontFamily: 'Arial, sans-serif', fontSize: '17px', color: '#cb4b4b', fontStyle: 'bold',
+        this.orderLayer.add(this.add.text(370, y + 22, 'НЕТ', {
+          fontFamily: 'Arial, sans-serif',
+          fontSize: '16px',
+          color: COLORS.red,
+          fontStyle: 'bold',
         }).setOrigin(1, 0));
       } else {
         const picked = Math.min(this.cart[line.productId] ?? 0, line.quantity);
-        this.orderLayer.add(this.add.text(334, y + 23, `${picked} / ${line.quantity}`, {
+        this.orderLayer.add(this.add.text(370, y + 22, `${picked} / ${line.quantity}`, {
           fontFamily: 'Arial, sans-serif',
-          fontSize: '19px',
+          fontSize: '18px',
           color: picked >= line.quantity ? '#218d53' : '#667486',
           fontStyle: 'bold',
         }).setOrigin(1, 0));
@@ -297,12 +328,14 @@ export class ProductionGameScene extends Phaser.Scene {
     });
 
     const total = Object.values(this.cart).reduce((sum, value) => sum + value, 0);
-    this.orderLayer.add(this.add.text(48, 704, `Собрано: ${total} шт.`, {
-      fontFamily: 'Arial, sans-serif', fontSize: '17px', color: '#69717d',
+    this.orderLayer.add(this.add.text(49, 720, `Собрано: ${total} шт.`, {
+      fontFamily: 'Arial, sans-serif',
+      fontSize: '16px',
+      color: '#6f7782',
     }));
 
-    const submit = this.add.image(199, 819, 'button-primary')
-      .setDisplaySize(302, 66)
+    const submit = this.add.image(216, 811, 'button-primary')
+      .setDisplaySize(330, 64)
       .setInteractive({ useHandCursor: true });
     submit.on('pointerover', () => {
       if (this.orderActive && !this.isPaused) submit.setTexture('button-primary-hover');
@@ -316,8 +349,11 @@ export class ProductionGameScene extends Phaser.Scene {
     });
     if (!this.orderActive) submit.setAlpha(0.55).disableInteractive();
     this.orderLayer.add(submit);
-    this.orderLayer.add(this.add.text(199, 819, this.orderActive ? 'ОТПРАВИТЬ ЗАКАЗ' : 'ЗАКАЗ ОТПРАВЛЕН', {
-      fontFamily: 'Arial, sans-serif', fontSize: '20px', color: '#ffffff', fontStyle: 'bold',
+    this.orderLayer.add(this.add.text(216, 811, this.orderActive ? 'ОТПРАВИТЬ ЗАКАЗ' : 'ЗАКАЗ ОТПРАВЛЕН', {
+      fontFamily: 'Arial, sans-serif',
+      fontSize: '19px',
+      color: '#ffffff',
+      fontStyle: 'bold',
     }).setOrigin(0.5));
   }
 
@@ -325,100 +361,110 @@ export class ProductionGameScene extends Phaser.Scene {
     this.shelfLayer.removeAll(true);
     this.shelfBadgeTexts.clear();
 
-    const startX = 408;
-    const startY = 164;
-    const bayWidth = 148;
-    const bayHeight = 448;
-    const gap = 5;
-    const slotY = [55, 160, 265, 370];
+    const startX = 442;
+    const startY = 205;
+    const bayWidth = 192;
+    const bayHeight = 438;
+    const gap = 10;
+    const slotY = [82, 181, 280, 379];
 
-    for (let col = 0; col < 5; col += 1) {
-      const x = startX + col * (bayWidth + gap);
-      const header = this.add.image(x, startY - 42, 'shelf-header').setOrigin(0).setDisplaySize(bayWidth, 37);
-      const bay = this.add.image(x, startY, 'shelf-bay').setOrigin(0).setDisplaySize(bayWidth, bayHeight);
-      this.shelfLayer.add([header, bay]);
+    const buckets: string[][] = SHELF_GROUPS.map(() => []);
+    for (const productId of this.order.shelfProductIds) {
+      const product = PRODUCT_BY_ID.get(productId);
+      if (!product) continue;
+      const groupIndex = SHELF_GROUPS.findIndex((group) => group.categories.includes(product.category as never));
+      buckets[Math.max(0, groupIndex)].push(productId);
     }
 
-    this.order.shelfProductIds.slice(0, 20).forEach((productId, index) => {
-      const product = PRODUCT_BY_ID.get(productId);
-      if (!product) return;
-      const col = Math.floor(index / 4);
-      const row = index % 4;
+    for (let col = 0; col < 4; col += 1) {
       const x = startX + col * (bayWidth + gap);
-      const centerX = x + bayWidth / 2;
-      const centerY = startY + slotY[row];
-
-      const hit = this.add.rectangle(centerX, centerY, bayWidth - 12, 94, 0xffffff, 0.001)
-        .setInteractive({ useHandCursor: true });
-      this.shelfLayer.add(hit);
-      this.addProductVisual(this.shelfLayer, productId, centerX, centerY - 6, 60);
-      this.shelfLayer.add(this.add.text(centerX, centerY + 31, product.shortName, {
+      const header = this.add.image(x, startY - 54, 'shelf-header')
+        .setOrigin(0)
+        .setDisplaySize(bayWidth, 48);
+      const bay = this.add.image(x, startY, 'shelf-bay')
+        .setOrigin(0)
+        .setDisplaySize(bayWidth, bayHeight);
+      this.shelfLayer.add([header, bay]);
+      this.shelfLayer.add(this.add.text(x + bayWidth / 2, startY - 30, SHELF_GROUPS[col].title, {
         fontFamily: 'Arial, sans-serif',
-        fontSize: product.shortName.length > 10 ? '12px' : '13px',
-        color: '#e4e9f0',
+        fontSize: col === 2 || col === 3 ? '12px' : '13px',
+        color: '#eef4fb',
+        fontStyle: 'bold',
         align: 'center',
       }).setOrigin(0.5));
 
-      const badge = this.add.text(centerX + 54, centerY - 39, '', {
-        fontFamily: 'Arial, sans-serif',
-        fontSize: '15px',
-        color: '#ffffff',
-        backgroundColor: '#208bc6',
-        padding: { x: 6, y: 2 },
-      }).setOrigin(1, 0);
-      this.shelfLayer.add(badge);
-      this.shelfBadgeTexts.set(productId, badge);
-      this.updateShelfBadge(productId);
+      buckets[col].slice(0, 4).forEach((productId, row) => {
+        const product = PRODUCT_BY_ID.get(productId);
+        if (!product) return;
+        const centerX = x + bayWidth / 2;
+        const centerY = startY + slotY[row];
+        const hit = this.add.rectangle(centerX, centerY, bayWidth - 22, 86, 0xffffff, 0.001)
+          .setInteractive({ useHandCursor: true });
+        this.shelfLayer.add(hit);
+        this.addProductVisual(this.shelfLayer, productId, centerX, centerY - 7, 66);
+        this.shelfLayer.add(this.add.text(centerX, centerY + 31, product.shortName, {
+          fontFamily: 'Arial, sans-serif',
+          fontSize: product.shortName.length > 11 ? '12px' : '13px',
+          color: '#edf2f8',
+          align: 'center',
+        }).setOrigin(0.5));
 
-      hit.on('pointerover', () => {
-        if (!this.orderActive || this.isPaused) return;
-        hit.setFillStyle(0x71d7ff, 0.08).setStrokeStyle(2, 0x8fe2ff, 0.85);
+        const badge = this.add.text(centerX + 69, centerY - 37, '', {
+          fontFamily: 'Arial, sans-serif',
+          fontSize: '14px',
+          color: '#ffffff',
+          backgroundColor: '#208bc6',
+          padding: { x: 6, y: 2 },
+        }).setOrigin(1, 0);
+        this.shelfLayer.add(badge);
+        this.shelfBadgeTexts.set(productId, badge);
+        this.updateShelfBadge(productId);
+
+        hit.on('pointerover', () => {
+          if (!this.orderActive || this.isPaused) return;
+          hit.setFillStyle(0x71d7ff, 0.09).setStrokeStyle(2, 0x8fe2ff, 0.85);
+        });
+        hit.on('pointerout', () => hit.setFillStyle(0xffffff, 0.001).setStrokeStyle());
+        hit.on('pointerup', () => {
+          if (!this.orderActive || this.isPaused) return;
+          this.addToCart(productId, centerX, centerY);
+        });
       });
-      hit.on('pointerout', () => hit.setFillStyle(0xffffff, 0.001).setStrokeStyle());
-      hit.on('pointerup', () => {
-        if (!this.orderActive || this.isPaused) return;
-        this.addToCart(productId, centerX, centerY);
-      });
-    });
+    }
   }
 
   private renderCart(): void {
     this.cartLayer.removeAll(true);
-    const panel = this.add.rectangle(396, 640, 798, 236, COLORS.navy, 0.95)
-      .setOrigin(0)
-      .setStrokeStyle(2, 0x395775);
-    this.cartLayer.add(panel);
-
     const entries = Object.entries(this.cart).filter(([, count]) => count > 0);
     const total = entries.reduce((sum, [, count]) => sum + count, 0);
-    this.cartLayer.add(this.add.text(418, 657, `КОРЗИНА  •  ${total} шт.`, {
-      fontFamily: 'Arial, sans-serif', fontSize: '18px', color: COLORS.text, fontStyle: 'bold',
-    }));
-    this.cartLayer.add(this.add.text(418, 684, 'Нажми на товар в корзине, чтобы убрать одну штуку', {
-      fontFamily: 'Arial, sans-serif', fontSize: '13px', color: COLORS.muted,
-    }));
+    this.cartCountText.setText(total > 0 ? `В заказе: ${total} шт.` : 'Тележка пустая');
 
+    // Items sit visually inside the trolley basket.
     const shown = entries.slice(0, 6);
     shown.forEach(([productId, count], index) => {
-      const x = 430 + index * 74;
-      const y = 755;
-      const hit = this.add.rectangle(x, y, 62, 72, 0x203856, 0.9)
+      const col = index % 3;
+      const row = Math.floor(index / 3);
+      const x = 975 + col * 49;
+      const y = 719 + row * 47;
+      const hit = this.add.rectangle(x, y, 44, 42, 0x10243a, 0.55)
         .setOrigin(0.5)
-        .setStrokeStyle(1, 0x4b6b8f)
+        .setStrokeStyle(1, 0x5a7797, 0.65)
         .setInteractive({ useHandCursor: true });
       this.cartLayer.add(hit);
-      this.addProductVisual(this.cartLayer, productId, x, y - 6, 48);
-      this.cartLayer.add(this.add.text(x + 22, y + 18, `×${count}`, {
-        fontFamily: 'Arial, sans-serif', fontSize: '14px', color: '#ffffff', fontStyle: 'bold',
+      this.addProductVisual(this.cartLayer, productId, x, y - 3, 38);
+      this.cartLayer.add(this.add.text(x + 15, y + 10, `×${count}`, {
+        fontFamily: 'Arial, sans-serif',
+        fontSize: '12px',
+        color: '#ffffff',
+        fontStyle: 'bold',
+        backgroundColor: '#17314dcc',
+        padding: { x: 2, y: 1 },
       }).setOrigin(0.5));
       hit.on('pointerup', () => {
         if (!this.orderActive || this.isPaused) return;
         this.removeFromCart(productId);
       });
     });
-
-    this.cartLayer.add(this.add.image(970, 772, 'worker-idle').setDisplaySize(76, 102));
-    this.cartLayer.add(this.add.image(1080, 770, 'cart').setDisplaySize(128, 102));
   }
 
   private renderPhone(): void {
@@ -426,82 +472,94 @@ export class ProductionGameScene extends Phaser.Scene {
     const rank = getRank(this.progress.xp);
     const nextRank = getNextRank(this.progress.xp);
 
-    this.phoneLayer.add(this.add.text(1244, 160, 'ПОСЛЕДНИЙ ЗАКАЗ', {
-      fontFamily: 'Arial, sans-serif', fontSize: '17px', color: COLORS.text, fontStyle: 'bold',
+    this.phoneLayer.add(this.add.text(1300, 175, 'ПОСЛЕДНИЙ ЗАКАЗ', {
+      fontFamily: 'Arial, sans-serif', fontSize: '15px', color: COLORS.text, fontStyle: 'bold',
     }));
 
-    const card = this.add.rectangle(1242, 206, 308, 178, COLORS.navySoft, 0.92)
+    const card = this.add.rectangle(1297, 213, 260, 190, COLORS.navySoft, 0.93)
       .setOrigin(0)
       .setStrokeStyle(1, 0x3d5a79);
     this.phoneLayer.add(card);
 
     if (this.orderActive) {
-      this.phoneLayer.add(this.add.text(1260, 224, 'Ожидает отправки', {
-        fontFamily: 'Arial, sans-serif', fontSize: '17px', color: COLORS.muted, fontStyle: 'bold',
+      this.phoneLayer.add(this.add.text(1312, 232, 'Ожидает отправки', {
+        fontFamily: 'Arial, sans-serif', fontSize: '15px', color: COLORS.muted, fontStyle: 'bold',
       }));
-      this.phoneLayer.add(this.add.text(1260, 264, `«${this.lastReview}»`, {
-        fontFamily: 'Arial, sans-serif', fontSize: '16px', color: COLORS.text,
-        wordWrap: { width: 270 }, lineSpacing: 5,
+      this.phoneLayer.add(this.add.text(1312, 270, `«${this.lastReview}»`, {
+        fontFamily: 'Arial, sans-serif', fontSize: '15px', color: COLORS.text,
+        wordWrap: { width: 228 }, lineSpacing: 4,
       }));
     } else if (this.lastResult) {
       const result = this.lastResult;
       const moneyPrefix = result.netPay > 0 ? '+' : '';
-      this.phoneLayer.add(this.add.text(1260, 220, `${moneyPrefix}${result.netPay} ₽`, {
-        fontFamily: 'Arial, sans-serif', fontSize: '32px',
+      this.phoneLayer.add(this.add.text(1312, 226, `${moneyPrefix}${result.netPay} ₽`, {
+        fontFamily: 'Arial, sans-serif', fontSize: '30px',
         color: result.netPay >= 0 ? COLORS.green : COLORS.red, fontStyle: 'bold',
       }));
-      this.phoneLayer.add(this.add.text(1260, 264, `${'★'.repeat(result.stars)}${'☆'.repeat(5 - result.stars)}`, {
-        fontFamily: 'Arial, sans-serif', fontSize: '24px', color: COLORS.yellow,
+      this.phoneLayer.add(this.add.text(1312, 266, `${'★'.repeat(result.stars)}${'☆'.repeat(5 - result.stars)}`, {
+        fontFamily: 'Arial, sans-serif', fontSize: '21px', color: COLORS.yellow,
       }));
-      this.phoneLayer.add(this.add.text(1260, 306, `«${this.lastReview}»`, {
-        fontFamily: 'Arial, sans-serif', fontSize: '15px', color: COLORS.text,
-        wordWrap: { width: 270 }, lineSpacing: 4,
+      this.phoneLayer.add(this.add.text(1312, 306, `«${this.lastReview}»`, {
+        fontFamily: 'Arial, sans-serif', fontSize: '14px', color: COLORS.text,
+        wordWrap: { width: 228 }, lineSpacing: 3,
       }));
     }
 
-    this.phoneLayer.add(this.add.text(1244, 430, 'ВАШ РЕЙТИНГ', {
-      fontFamily: 'Arial, sans-serif', fontSize: '14px', color: COLORS.muted,
+    this.phoneLayer.add(this.add.text(1300, 430, 'ВАШ РЕЙТИНГ', {
+      fontFamily: 'Arial, sans-serif', fontSize: '13px', color: COLORS.muted,
     }));
-    this.phoneLayer.add(this.add.image(1260, 480, 'icon-star').setDisplaySize(30, 30));
-    this.phoneLayer.add(this.add.text(1282, 461, this.progress.rating.toFixed(1), {
-      fontFamily: 'Arial, sans-serif', fontSize: '28px', color: COLORS.text, fontStyle: 'bold',
+    this.phoneLayer.add(this.add.image(1316, 476, 'icon-star').setDisplaySize(28, 28));
+    this.phoneLayer.add(this.add.text(1337, 459, this.progress.rating.toFixed(1), {
+      fontFamily: 'Arial, sans-serif', fontSize: '26px', color: COLORS.text, fontStyle: 'bold',
     }));
 
-    this.phoneLayer.add(this.add.text(1244, 526, 'ДО СЛЕДУЮЩЕГО РАНГА', {
-      fontFamily: 'Arial, sans-serif', fontSize: '14px', color: COLORS.muted,
+    this.phoneLayer.add(this.add.text(1300, 516, nextRank ? `ДО ${nextRank.title.toUpperCase()}` : 'МАКСИМАЛЬНЫЙ РАНГ', {
+      fontFamily: 'Arial, sans-serif', fontSize: '12px', color: COLORS.muted,
     }));
-    const track = this.add.rectangle(1244, 570, 286, 14, 0x102239, 1).setOrigin(0);
-    this.phoneLayer.add(track);
+    this.phoneLayer.add(this.add.rectangle(1300, 548, 240, 12, 0x102239, 1).setOrigin(0));
     const currentMin = rank.minXp;
     const nextMin = nextRank?.minXp ?? Math.max(currentMin + 1, this.progress.xp);
     const ratio = nextRank
       ? Phaser.Math.Clamp((this.progress.xp - currentMin) / Math.max(1, nextMin - currentMin), 0, 1)
       : 1;
-    const fill = this.add.rectangle(1244, 570, 286 * ratio, 14, 0x2bc2ea, 1).setOrigin(0);
-    this.phoneLayer.add(fill);
-    this.phoneLayer.add(this.add.text(1244, 596, nextRank ? `${this.progress.xp} / ${nextRank.minXp} XP` : `${this.progress.xp} XP • ТОП`, {
-      fontFamily: 'Arial, sans-serif', fontSize: '14px', color: COLORS.muted,
+    this.phoneLayer.add(this.add.rectangle(1300, 548, 240 * ratio, 12, COLORS.cyan, 1).setOrigin(0));
+    this.phoneLayer.add(this.add.text(1300, 568, nextRank ? `${this.progress.xp} / ${nextRank.minXp} XP` : `${this.progress.xp} XP`, {
+      fontFamily: 'Arial, sans-serif', fontSize: '12px', color: COLORS.muted,
     }));
 
     if (!this.orderActive && this.lastResult) {
       const details = this.lastResult;
-      this.phoneLayer.add(this.add.text(1244, 650,
-        `Точно ${details.exactCount}   Замены ${details.replacementCount}\nПропущено ${details.missingCount}   Лишнее ${details.extraCount}   XP +${details.xp}`,
-        { fontFamily: 'Arial, sans-serif', fontSize: '14px', color: COLORS.muted, lineSpacing: 5 },
+      this.phoneLayer.add(this.add.text(1300, 604,
+        `Точно ${details.exactCount} · Замены ${details.replacementCount}\nПропущено ${details.missingCount} · Лишнее ${details.extraCount}`,
+        { fontFamily: 'Arial, sans-serif', fontSize: '12px', color: COLORS.muted, lineSpacing: 5 },
       ));
 
-      const nextButton = this.add.image(1396, 807, 'button-primary')
-        .setDisplaySize(286, 62)
+      const nextButton = this.add.image(1420, 810, 'button-primary')
+        .setDisplaySize(238, 58)
         .setInteractive({ useHandCursor: true });
       this.phoneLayer.add(nextButton);
-      this.phoneLayer.add(this.add.text(1396, 807, 'СЛЕДУЮЩИЙ ЗАКАЗ', {
-        fontFamily: 'Arial, sans-serif', fontSize: '18px', color: '#ffffff', fontStyle: 'bold',
+      this.phoneLayer.add(this.add.text(1420, 810, 'СЛЕДУЮЩИЙ ЗАКАЗ', {
+        fontFamily: 'Arial, sans-serif', fontSize: '16px', color: '#ffffff', fontStyle: 'bold',
       }).setOrigin(0.5));
       nextButton.on('pointerover', () => nextButton.setTexture('button-primary-hover'));
       nextButton.on('pointerout', () => nextButton.setTexture('button-primary'));
       nextButton.on('pointerdown', () => nextButton.setTexture('button-primary-pressed'));
       nextButton.on('pointerup', () => this.startNextOrder());
+    } else {
+      this.addPhoneMenuRow(1299, 626, 'Заказы');
+      this.addPhoneMenuRow(1299, 678, 'Улучшения');
+      this.addPhoneMenuRow(1299, 730, 'Статистика');
     }
+  }
+
+  private addPhoneMenuRow(x: number, y: number, label: string): void {
+    const row = this.add.rectangle(x, y, 242, 42, 0x18314d, 0.9)
+      .setOrigin(0)
+      .setStrokeStyle(1, 0x355675);
+    this.phoneLayer.add(row);
+    this.phoneLayer.add(this.add.text(x + 18, y + 11, label, {
+      fontFamily: 'Arial, sans-serif', fontSize: '14px', color: '#dfe9f5',
+    }));
   }
 
   private addProductVisual(
@@ -511,18 +569,9 @@ export class ProductionGameScene extends Phaser.Scene {
     y: number,
     size: number,
   ): void {
-    const product = PRODUCT_BY_ID.get(productId);
-    if (!product) return;
     const texture = PRODUCT_TEXTURES[productId];
-    if (texture && this.textures.exists(texture)) {
-      const image = this.add.image(x, y, texture).setDisplaySize(size, size);
-      container.add(image);
-      return;
-    }
-    const fallback = this.add.text(x, y, product.icon, {
-      fontFamily: 'Arial, sans-serif', fontSize: `${Math.round(size * 0.62)}px`,
-    }).setOrigin(0.5);
-    container.add(fallback);
+    if (!texture || !this.textures.exists(texture)) return;
+    container.add(this.add.image(x, y, texture).setDisplaySize(size, size));
   }
 
   private addToCart(productId: string, x: number, y: number): void {
@@ -531,27 +580,34 @@ export class ProductionGameScene extends Phaser.Scene {
     this.renderOrder();
     this.renderCart();
 
-    const product = PRODUCT_BY_ID.get(productId);
+    const originalX = this.workerSprite.x;
+    const targetX = Phaser.Math.Clamp(x, 560, 1110);
+    this.workerSprite.setTexture('worker-pick');
+    this.tweens.killTweensOf(this.workerSprite);
+    this.tweens.add({
+      targets: this.workerSprite,
+      x: targetX,
+      duration: 140,
+      ease: 'Quad.easeOut',
+      yoyo: true,
+      hold: 80,
+      onComplete: () => {
+        this.workerSprite.setTexture('worker-idle').setX(originalX);
+      },
+    });
+
     const texture = PRODUCT_TEXTURES[productId];
-    if (product && texture && this.textures.exists(texture)) {
-      const fly = this.add.image(x, y, texture).setDisplaySize(52, 52).setDepth(80);
+    if (texture && this.textures.exists(texture)) {
+      const fly = this.add.image(x, y, texture).setDisplaySize(58, 58).setDepth(80);
       this.tweens.add({
         targets: fly,
-        x: 760,
-        y: 740,
-        scale: 0.45,
-        alpha: 0.15,
-        duration: 330,
+        x: 1020,
+        y: 730,
+        scale: 0.55,
+        alpha: 0.2,
+        duration: 360,
         ease: 'Quad.easeIn',
         onComplete: () => fly.destroy(),
-      });
-    } else {
-      const feedback = this.add.text(x, y, '+1', {
-        fontFamily: 'Arial, sans-serif', fontSize: '24px', color: '#7de6a1', fontStyle: 'bold',
-      }).setOrigin(0.5).setDepth(80);
-      this.tweens.add({
-        targets: feedback, y: y - 42, alpha: 0, duration: 320,
-        onComplete: () => feedback.destroy(),
       });
     }
   }
