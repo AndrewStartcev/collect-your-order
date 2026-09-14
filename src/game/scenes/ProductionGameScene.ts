@@ -22,7 +22,39 @@ const COLORS = {
   cyan: '#2bc2ea',
 };
 
-const url = (path: string) => new URL(`../../../assets/${path}`, import.meta.url).href;
+// IMPORTANT: keep every asset URL as a static literal. Vite can transform these
+// into real dev/build asset URLs. A dynamic helper around new URL() leaves
+// ../../../assets/... unresolved in the browser and Phaser receives HTML instead
+// of PNG data, which produces the green missing-texture placeholders.
+const ASSET_URLS = {
+  warehouseBackdrop: new URL('../../../assets/environment/warehouse-backdrop.png', import.meta.url).href,
+  shelfBay: new URL('../../../assets/environment/shelf-bay.png', import.meta.url).href,
+  shelfHeader: new URL('../../../assets/environment/shelf-header.png', import.meta.url).href,
+  workerIdle: new URL('../../../assets/character/worker-idle.png', import.meta.url).href,
+  workerPick: new URL('../../../assets/character/worker-pick.png', import.meta.url).href,
+  cart: new URL('../../../assets/character/cart.png', import.meta.url).href,
+  orderPanel: new URL('../../../assets/ui/order-panel.png', import.meta.url).href,
+  phoneFrame: new URL('../../../assets/ui/phone-frame.png', import.meta.url).href,
+  buttonPrimary: new URL('../../../assets/ui/button-primary.png', import.meta.url).href,
+  buttonPrimaryHover: new URL('../../../assets/ui/button-primary-hover.png', import.meta.url).href,
+  buttonPrimaryPressed: new URL('../../../assets/ui/button-primary-pressed.png', import.meta.url).href,
+  iconStar: new URL('../../../assets/ui/icon-star.png', import.meta.url).href,
+  iconMoney: new URL('../../../assets/ui/icon-money.png', import.meta.url).href,
+  iconClock: new URL('../../../assets/ui/icon-clock.png', import.meta.url).href,
+  iconPause: new URL('../../../assets/ui/icon-pause.png', import.meta.url).href,
+  productMilk: new URL('../../../assets/products/milk-carton.png', import.meta.url).href,
+  productKefir: new URL('../../../assets/products/kefir.png', import.meta.url).href,
+  productBanana: new URL('../../../assets/products/banana.png', import.meta.url).href,
+  productApple: new URL('../../../assets/products/apple.png', import.meta.url).href,
+  productRice: new URL('../../../assets/products/rice.png', import.meta.url).href,
+  productPaper: new URL('../../../assets/products/toilet-paper.png', import.meta.url).href,
+  productDumplings: new URL('../../../assets/products/dumplings.png', import.meta.url).href,
+  productBerries: new URL('../../../assets/products/frozen-berries.png', import.meta.url).href,
+  productChocolate: new URL('../../../assets/products/chocolate.png', import.meta.url).href,
+  productDetergent: new URL('../../../assets/products/dish-soap.png', import.meta.url).href,
+  productShampoo: new URL('../../../assets/products/shampoo.png', import.meta.url).href,
+  productBatteries: new URL('../../../assets/products/batteries.png', import.meta.url).href,
+} as const;
 
 const PRODUCT_TEXTURES: Record<string, string> = {
   milk: 'product-milk',
@@ -36,6 +68,7 @@ const PRODUCT_TEXTURES: Record<string, string> = {
   chocolate: 'product-chocolate',
   detergent: 'product-detergent',
   shampoo: 'product-shampoo',
+  batteries: 'product-batteries',
 };
 
 export class ProductionGameScene extends Phaser.Scene {
@@ -66,33 +99,34 @@ export class ProductionGameScene extends Phaser.Scene {
   }
 
   preload(): void {
-    this.load.image('warehouse-backdrop', url('environment/warehouse-backdrop.png'));
-    this.load.image('shelf-bay', url('environment/shelf-bay.png'));
-    this.load.image('shelf-header', url('environment/shelf-header.png'));
-    this.load.image('worker-idle', url('character/worker-idle.png'));
-    this.load.image('worker-pick', url('character/worker-pick.png'));
-    this.load.image('cart', url('character/cart.png'));
-    this.load.image('order-panel', url('ui/order-panel.png'));
-    this.load.image('phone-frame', url('ui/phone-frame.png'));
-    this.load.image('button-primary', url('ui/button-primary.png'));
-    this.load.image('button-primary-hover', url('ui/button-primary-hover.png'));
-    this.load.image('button-primary-pressed', url('ui/button-primary-pressed.png'));
-    this.load.image('icon-star', url('ui/icon-star.png'));
-    this.load.image('icon-money', url('ui/icon-money.png'));
-    this.load.image('icon-clock', url('ui/icon-clock.png'));
-    this.load.image('icon-pause', url('ui/icon-pause.png'));
+    this.load.image('warehouse-backdrop', ASSET_URLS.warehouseBackdrop);
+    this.load.image('shelf-bay', ASSET_URLS.shelfBay);
+    this.load.image('shelf-header', ASSET_URLS.shelfHeader);
+    this.load.image('worker-idle', ASSET_URLS.workerIdle);
+    this.load.image('worker-pick', ASSET_URLS.workerPick);
+    this.load.image('cart', ASSET_URLS.cart);
+    this.load.image('order-panel', ASSET_URLS.orderPanel);
+    this.load.image('phone-frame', ASSET_URLS.phoneFrame);
+    this.load.image('button-primary', ASSET_URLS.buttonPrimary);
+    this.load.image('button-primary-hover', ASSET_URLS.buttonPrimaryHover);
+    this.load.image('button-primary-pressed', ASSET_URLS.buttonPrimaryPressed);
+    this.load.image('icon-star', ASSET_URLS.iconStar);
+    this.load.image('icon-money', ASSET_URLS.iconMoney);
+    this.load.image('icon-clock', ASSET_URLS.iconClock);
+    this.load.image('icon-pause', ASSET_URLS.iconPause);
 
-    this.load.image('product-milk', url('products/milk-carton.png'));
-    this.load.image('product-kefir', url('products/kefir.png'));
-    this.load.image('product-banana', url('products/banana.png'));
-    this.load.image('product-apple', url('products/apple.png'));
-    this.load.image('product-rice', url('products/rice.png'));
-    this.load.image('product-paper', url('products/toilet-paper.png'));
-    this.load.image('product-dumplings', url('products/dumplings.png'));
-    this.load.image('product-berries', url('products/frozen-berries.png'));
-    this.load.image('product-chocolate', url('products/chocolate.png'));
-    this.load.image('product-detergent', url('products/dish-soap.png'));
-    this.load.image('product-shampoo', url('products/shampoo.png'));
+    this.load.image('product-milk', ASSET_URLS.productMilk);
+    this.load.image('product-kefir', ASSET_URLS.productKefir);
+    this.load.image('product-banana', ASSET_URLS.productBanana);
+    this.load.image('product-apple', ASSET_URLS.productApple);
+    this.load.image('product-rice', ASSET_URLS.productRice);
+    this.load.image('product-paper', ASSET_URLS.productPaper);
+    this.load.image('product-dumplings', ASSET_URLS.productDumplings);
+    this.load.image('product-berries', ASSET_URLS.productBerries);
+    this.load.image('product-chocolate', ASSET_URLS.productChocolate);
+    this.load.image('product-detergent', ASSET_URLS.productDetergent);
+    this.load.image('product-shampoo', ASSET_URLS.productShampoo);
+    this.load.image('product-batteries', ASSET_URLS.productBatteries);
   }
 
   create(): void {
