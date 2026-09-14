@@ -8,14 +8,58 @@
 
 ## Стек
 
-- Phaser 4
-- Vite
-- TypeScript
-- Pixel art
+- Phaser 4.2.1
+- Vite 8
+- TypeScript 7
+- Pixel art после подтверждения gameplay
 - Web-first: Пикабу / VK / OK, затем Яндекс при необходимости
 
 ## Core loop
 
 Получить заказ → найти и выбрать товары → при необходимости выбрать замену → отправить заказ → получить деньги / отзыв / штраф → повысить рейтинг → приблизиться к званию «Сборщик №1».
 
-Подробности: `docs/GAME_BRIEF.md`.
+## Текущий статус
+
+Есть первый playable prototype без production-ассетов. Он намеренно собран на геометрии, тексте и временных иконках, чтобы проверить core loop до работы дизайнера.
+
+Реализовано:
+
+- процедурные заказы;
+- 36 товаров и 6 категорий;
+- товары, которых временно нет в наличии;
+- замены внутри категории;
+- свободный выбор любых товаров;
+- корзина с возможностью удалить выбранную позицию;
+- таймер;
+- оценка заказа;
+- деньги, чаевые и штрафы;
+- отзывы;
+- рейтинг и XP;
+- 6 карьерных рангов;
+- LocalStorage;
+- mouse/touch;
+- CI typecheck + production build.
+
+## Запуск
+
+```bash
+npm install
+npm run dev
+```
+
+Production-проверка:
+
+```bash
+npm run build
+npm run preview
+```
+
+## Документация
+
+- `docs/GAME_BRIEF.md` — продуктовая концепция;
+- `docs/SCOPE.md` — однодневный scope;
+- `docs/WIREFRAME.md` — утверждённая геометрия prototype;
+- `docs/TECH_SPEC.md` — архитектура и правила gameplay prototype;
+- `docs/DECISIONS.md` — журнал решений.
+
+Следующий production gate: hands-on проверка core loop. Только после неё создаются `ART_BIBLE.md` и `ASSET_MANIFEST.md`.
