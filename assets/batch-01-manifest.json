@@ -1,0 +1,245 @@
+[
+  {
+    "path": "assets/environment/shelf-bay.png",
+    "w": 224,
+    "h": 448,
+    "mode": "stretch",
+    "prompt": "Empty dark navy steel warehouse shelf bay, front orthographic view, four evenly spaced empty shelf compartments, warm upper-left edge lighting; no products or text; transparent exterior.",
+    "sourceFile": "exec-c9018769-eb71-4e46-adc5-5e17dd133e3a.png",
+    "generator": "built-in ImageGen"
+  },
+  {
+    "path": "assets/environment/shelf-header.png",
+    "w": 224,
+    "h": 56,
+    "mode": "frame",
+    "prompt": "Use case: stylized-concept. ONE isolated production sprite for cozy warehouse order-picking casual game. Modern clean pixel-art / pixel-inspired, crisp intentional pixel clusters, dark navy outlines, bright readable colors, warm light from upper left. No real brands, no text, no letters, no numbers, no watermark, no backdrop or checkerboard. Genuine transparent PNG alpha outside object. A blank rectangular navy metal category header plate for top of shelf. Aspect 4:1, exact target 224x56. Thin blue steel bevel, subtle warm upper-left highlight, uncluttered dark inset. Front view, no icons. Fill nearly whole canvas.",
+    "sourceFile": "exec-5eed3d02-bcab-42a6-884f-726fb4976f5e.png",
+    "generator": "built-in ImageGen"
+  },
+  {
+    "path": "assets/character/worker-idle.png",
+    "w": 96,
+    "h": 128,
+    "mode": "sprite",
+    "prompt": "Use case: stylized-concept. ONE isolated production sprite for cozy warehouse order-picking casual game. Modern clean pixel-art / pixel-inspired, crisp intentional pixel clusters, dark navy outlines, bright readable colors, warm light from upper left. No real brands, no text, no letters, no numbers, no watermark, no backdrop or checkerboard. Genuine transparent PNG alpha outside object. Friendly young adult warehouse worker, red cap, short brown hair, red shirt and plain red delivery backpack without logos, navy trousers, white/red sneakers. Full body side three-quarter view facing RIGHT, relaxed standing idle, both arms down. Target 96x128. Anatomically clear, head slightly enlarged casual pixel game proportions. Only person; no floor shadow or objects.",
+    "sourceFile": "exec-20dadc9b-be88-4633-a2a3-4179517373ec.png",
+    "generator": "built-in ImageGen"
+  },
+  {
+    "path": "assets/character/worker-pick.png",
+    "w": 96,
+    "h": 128,
+    "mode": "sprite",
+    "prompt": "Use case: stylized-concept. ONE isolated production sprite for cozy warehouse order-picking casual game. Modern clean pixel-art / pixel-inspired, crisp intentional pixel clusters, dark navy outlines, bright readable colors, warm light from upper left. No real brands, no text, no letters, no numbers, no watermark, no backdrop or checkerboard. Genuine transparent PNG alpha outside object. Create pick/scan POSE VARIANT of this exact worker reference. Preserve identity, cap, red shirt, plain backpack, navy trousers, sneakers, same body size and facing RIGHT, same baseline. Extend right arm forward holding a small dark handheld barcode scanner; left hand relaxed. No product, no beam. Full body transparent sprite, target96x128.",
+    "sourceFile": "exec-ce7f1565-e66e-49f7-81bd-2c4193f63749.png",
+    "generator": "built-in ImageGen"
+  },
+  {
+    "path": "assets/character/cart.png",
+    "w": 160,
+    "h": 128,
+    "mode": "sprite",
+    "prompt": "Use case: stylized-concept. ONE isolated production sprite for cozy warehouse order-picking casual game. Modern clean pixel-art / pixel-inspired, crisp intentional pixel clusters, dark navy outlines, bright readable colors, warm light from upper left. No real brands, no text, no letters, no numbers, no watermark, no backdrop or checkerboard. Genuine transparent PNG alpha outside object. One empty warehouse shopping cart, side three-quarter view facing RIGHT, dark blue steel wire basket with clearly open transparent gaps between wires, silver top rail, red handle at right, four small dark rubber wheels. Target160x128; width dominant. No products, no person, no ground shadow.",
+    "sourceFile": "exec-65e8bbd2-7b80-4037-83fc-d61ebad74172.png",
+    "generator": "built-in ImageGen"
+  },
+  {
+    "path": "assets/ui/order-panel.png",
+    "w": 350,
+    "h": 750,
+    "mode": "stretch",
+    "prompt": "Use case: stylized-concept. ONE isolated production sprite for cozy warehouse order-picking casual game. Modern clean pixel-art / pixel-inspired, crisp intentional pixel clusters, dark navy outlines, bright readable colors, warm light from upper left. No real brands, no text, no letters, no numbers, no watermark, no backdrop or checkerboard. Genuine transparent PNG alpha outside object. ONE blank tall order clipboard panel, target350x750 aspect 7:15. Dark navy game UI frame with modest blue steel bevel, small metal clip centered at top, large uniform deep navy inset usable for programmatic text. Frame follows canvas edges, 6px outer transparent margin at target. NO rows, NO buttons, NO text, NO icons, no content. Stylish substantial casual game prop, restrained warm edge highlight.",
+    "sourceFile": "exec-cee2cd15-7e9b-45c2-a51c-97a3f0e22658.png",
+    "generator": "built-in ImageGen"
+  },
+  {
+    "path": "assets/ui/phone-frame.png",
+    "w": 360,
+    "h": 750,
+    "mode": "stretch",
+    "prompt": "Use case: stylized-concept. ONE isolated production sprite for cozy warehouse order-picking casual game. Modern clean pixel-art / pixel-inspired, crisp intentional pixel clusters, dark navy outlines, bright readable colors, warm light from upper left. No real brands, no text, no letters, no numbers, no watermark, no backdrop or checkerboard. Genuine transparent PNG alpha outside object. ONE tall smartphone housing, front orthographic, target360x750. Dark navy and blue steel rugged rounded body, thin bevel, small earpiece at top, no camera protrusion. Large empty uniform deep navy screen for programmatic game UI, inner safe area x24..336 y50..706 relative target360x750. No interface, no buttons inside screen, no text or icons or numbers. Outer silhouette almost fills canvas with 4px margin.",
+    "sourceFile": "exec-97190a84-3574-4742-bc7d-109158675203.png",
+    "generator": "built-in ImageGen"
+  },
+  {
+    "path": "assets/ui/button-primary.png",
+    "w": 300,
+    "h": 72,
+    "mode": "frame",
+    "prompt": "Use case: stylized-concept. ONE isolated production sprite for cozy warehouse order-picking casual game. Modern clean pixel-art / pixel-inspired, crisp intentional pixel clusters, dark navy outlines, bright readable colors, warm light from upper left. No real brands, no text, no letters, no numbers, no watermark, no backdrop or checkerboard. Genuine transparent PNG alpha outside object. ONE blank emerald green rectangular game button, 300x72 aspect ratio. Solid completely opaque FLAT GREEN center, uniform #2daf55, absolutely no gradient to black, no dark void, no texture in center. Small clipped pixel corners (radius 6 at target, NOT oval or pill), crisp navy outline, narrow bright upper bevel and 4px dark lower extrusion. Straight horizontal edges. All green face pixels fully opaque. Only outside silhouette transparent. No text or symbols.",
+    "sourceFile": "exec-7eda8abd-6882-400d-9134-60165af27311.png",
+    "generator": "built-in ImageGen"
+  },
+  {
+    "path": "assets/ui/icon-star.png",
+    "w": 40,
+    "h": 40,
+    "mode": "sprite",
+    "prompt": "Use case: stylized-concept. ONE isolated production sprite for cozy warehouse order-picking casual game. Modern clean pixel-art / pixel-inspired, crisp intentional pixel clusters, dark navy outlines, bright readable colors, warm light from upper left. No real brands, no text, no letters, no numbers, no watermark, no backdrop or checkerboard. Genuine transparent PNG alpha outside object. One chunky golden five-point rating star, front view, amber outline and small upper-left cream highlight, target40x40, readable at small size, opaque solid fill. No shadow outside silhouette.",
+    "sourceFile": "exec-661749e1-f0af-4dff-a5fd-54a10ac723b9.png",
+    "generator": "built-in ImageGen"
+  },
+  {
+    "path": "assets/ui/icon-money.png",
+    "w": 40,
+    "h": 40,
+    "mode": "sprite",
+    "prompt": "Use case: stylized-concept. ONE isolated production sprite for cozy warehouse order-picking casual game. Modern clean pixel-art / pixel-inspired, crisp intentional pixel clusters, dark navy outlines, bright readable colors, warm light from upper left. No real brands, no text, no letters, no numbers, no watermark, no backdrop or checkerboard. Genuine transparent PNG alpha outside object. One compact bright green bundle of banknotes at slight three-quarter view, pale simple paper band and small neutral diamond stamp, opaque solid fill, target40x40. No currency text or digits.",
+    "sourceFile": "exec-cfae6dcc-675f-4cda-bec3-df1b1801e55b.png",
+    "generator": "built-in ImageGen"
+  },
+  {
+    "path": "assets/ui/icon-clock.png",
+    "w": 40,
+    "h": 40,
+    "mode": "sprite",
+    "prompt": "Use case: stylized-concept. ONE isolated production sprite for cozy warehouse order-picking casual game. Modern clean pixel-art / pixel-inspired, crisp intentional pixel clusters, dark navy outlines, bright readable colors, warm light from upper left. No real brands, no text, no letters, no numbers, no watermark, no backdrop or checkerboard. Genuine transparent PNG alpha outside object. One pale ivory stopwatch with navy rim, two simple dark hands and small top crown, face solid opaque ivory, target40x40. No numerals, no lettering.",
+    "sourceFile": "exec-17ab765a-122e-470c-81f0-e02573cafad4.png",
+    "generator": "built-in ImageGen"
+  },
+  {
+    "path": "assets/ui/icon-pause.png",
+    "w": 40,
+    "h": 40,
+    "mode": "sprite",
+    "prompt": "Use case: stylized-concept. ONE isolated production sprite for cozy warehouse order-picking casual game. Modern clean pixel-art / pixel-inspired, crisp intentional pixel clusters, dark navy outlines, bright readable colors, warm light from upper left. No real brands, no text, no letters, no numbers, no watermark, no backdrop or checkerboard. Genuine transparent PNG alpha outside object. One pause symbol comprising two thick equal ivory vertical bars with subtle blue-gray pixel bevels, balanced symmetrically, target40x40, no enclosing button or circle. Transparent around and between bars. Solid opaque bars.",
+    "sourceFile": "exec-801c0d72-2685-47f6-a055-179237bae8b2.png",
+    "generator": "built-in ImageGen"
+  },
+  {
+    "path": "assets/ui/button-primary-hover.png",
+    "w": 300,
+    "h": 72,
+    "mode": "frame",
+    "prompt": "Use case: stylized-concept. ONE isolated production sprite for cozy warehouse order-picking casual game. Modern clean pixel-art / pixel-inspired, crisp intentional pixel clusters, dark navy outlines, bright readable colors, warm light from upper left. No real brands, no text, no letters, no numbers, no watermark, no backdrop or checkerboard. Genuine transparent PNG alpha outside object. Edit this button into hover state. Change ONLY green face to brighter mint-emerald and strengthen the thin top rim highlight. Preserve identical silhouette, border, canvas, geometry and blank center. Solid opaque center. Target 300x72.",
+    "sourceFile": "exec-10da7f25-58d1-4794-8f24-eaa260917685.png",
+    "generator": "built-in ImageGen"
+  },
+  {
+    "path": "assets/ui/button-primary-pressed.png",
+    "w": 300,
+    "h": 72,
+    "mode": "frame",
+    "prompt": "Use case: stylized-concept. ONE isolated production sprite for cozy warehouse order-picking casual game. Modern clean pixel-art / pixel-inspired, crisp intentional pixel clusters, dark navy outlines, bright readable colors, warm light from upper left. No real brands, no text, no letters, no numbers, no watermark, no backdrop or checkerboard. Genuine transparent PNG alpha outside object. Edit this button into pressed state. Change ONLY green face to deeper green, reduce top bevel and bottom extrusion to imply pressed-in state. Preserve identical outer silhouette, canvas and blank center. Solid opaque center. Target 300x72.",
+    "sourceFile": "exec-f115f832-1a06-4ce6-a4dd-a2c3acd3b4c3.png",
+    "generator": "built-in ImageGen"
+  },
+  {
+    "path": "assets/products/milk-carton.png",
+    "w": 64,
+    "h": 64,
+    "mode": "sprite",
+    "prompt": "Use case: stylized-concept. ONE isolated production sprite for cozy warehouse order-picking casual game. Modern clean pixel-art / pixel-inspired, crisp intentional pixel clusters, dark navy outlines, bright readable colors, warm light from upper left. No real brands, no text, no letters, no numbers, no watermark, no backdrop or checkerboard. Genuine transparent PNG alpha outside object. Product inventory icon. Blue and white tall paper milk carton with folded gable top, small blue milk droplet emblem, no text. Target64x64 pixels. Object maximum dimension56px with 4px clear margin all around. One object centered, slight three-quarter front view, simple deliberate pixel clusters with no tiny noisy details. Entire object must be solid opaque, only exterior transparent. Same consistent modern grocery pixel sprite style. No ground shadow.",
+    "sourceFile": "exec-8b57bc0b-33b7-4f10-a658-eb529b247fc9.png",
+    "generator": "built-in ImageGen"
+  },
+  {
+    "path": "assets/products/banana.png",
+    "w": 64,
+    "h": 64,
+    "mode": "sprite",
+    "prompt": "Use case: stylized-concept. ONE isolated production sprite for cozy warehouse order-picking casual game. Modern clean pixel-art / pixel-inspired, crisp intentional pixel clusters, dark navy outlines, bright readable colors, warm light from upper left. No real brands, no text, no letters, no numbers, no watermark, no backdrop or checkerboard. Genuine transparent PNG alpha outside object. Product inventory icon. A small bunch of three ripe bright yellow curved bananas with brown joined stem, strong curved silhouette. Target64x64 pixels. Object maximum dimension56px with 4px clear margin all around. One object centered, slight three-quarter front view, simple deliberate pixel clusters with no tiny noisy details. Entire object must be solid opaque, only exterior transparent. Same consistent modern grocery pixel sprite style. No ground shadow.",
+    "sourceFile": "exec-9390c4fe-9a41-4ebe-84f0-3a15a70c8210.png",
+    "generator": "built-in ImageGen"
+  },
+  {
+    "path": "assets/products/toilet-paper.png",
+    "w": 64,
+    "h": 64,
+    "mode": "sprite",
+    "prompt": "Use case: stylized-concept. ONE isolated production sprite for cozy warehouse order-picking casual game. Modern clean pixel-art / pixel-inspired, crisp intentional pixel clusters, dark navy outlines, bright readable colors, warm light from upper left. No real brands, no text, no letters, no numbers, no watermark, no backdrop or checkerboard. Genuine transparent PNG alpha outside object. Product inventory icon. One white toilet paper roll, three-quarter view with visible gray cardboard core at top and a short loose sheet at right, light blue shadows. Target64x64 pixels. Object maximum dimension56px with 4px clear margin all around. One object centered, slight three-quarter front view, simple deliberate pixel clusters with no tiny noisy details. Entire object must be solid opaque, only exterior transparent. Same consistent modern grocery pixel sprite style. No ground shadow.",
+    "sourceFile": "exec-21cb7e2b-aaa7-4d60-9282-0d09283f907e.png",
+    "generator": "built-in ImageGen"
+  },
+  {
+    "path": "assets/products/dumplings.png",
+    "w": 64,
+    "h": 64,
+    "mode": "sprite",
+    "prompt": "Use case: stylized-concept. ONE isolated production sprite for cozy warehouse order-picking casual game. Modern clean pixel-art / pixel-inspired, crisp intentional pixel clusters, dark navy outlines, bright readable colors, warm light from upper left. No real brands, no text, no letters, no numbers, no watermark, no backdrop or checkerboard. Genuine transparent PNG alpha outside object. Product inventory icon. A squat red sealed frozen dumplings pouch, crimped top and bottom, cream oval picture of three crescent dumplings on front, no lettering. Target64x64 pixels. Object maximum dimension56px with 4px clear margin all around. One object centered, slight three-quarter front view, simple deliberate pixel clusters with no tiny noisy details. Entire object must be solid opaque, only exterior transparent. Same consistent modern grocery pixel sprite style. No ground shadow.",
+    "sourceFile": "exec-153288b9-67d6-4d29-80bc-e88e7eebe9a0.png",
+    "generator": "built-in ImageGen"
+  },
+  {
+    "path": "assets/products/kefir.png",
+    "w": 64,
+    "h": 64,
+    "mode": "sprite",
+    "prompt": "Use case: stylized-concept. ONE isolated production sprite for cozy warehouse order-picking casual game. Modern clean pixel-art / pixel-inspired, crisp intentional pixel clusters, dark navy outlines, bright readable colors, warm light from upper left. No real brands, no text, no letters, no numbers, no watermark, no backdrop or checkerboard. Genuine transparent PNG alpha outside object. Product inventory icon. Green and ivory kefir bottle with narrow neck and green screw cap, broad creamy opaque body, green simple leaf emblem. Clearly a bottle, unlike milk carton. Target64x64 pixels. Object maximum dimension56px with 4px clear margin all around. One object centered, slight three-quarter front view, simple deliberate pixel clusters with no tiny noisy details. Entire object must be solid opaque, only exterior transparent. Same consistent modern grocery pixel sprite style. No ground shadow.",
+    "sourceFile": "exec-d26c1d43-e644-40e3-bd3f-add824212559.png",
+    "generator": "built-in ImageGen"
+  },
+  {
+    "path": "assets/products/apple.png",
+    "w": 64,
+    "h": 64,
+    "mode": "sprite",
+    "prompt": "Use case: stylized-concept. ONE isolated production sprite for cozy warehouse order-picking casual game. Modern clean pixel-art / pixel-inspired, crisp intentional pixel clusters, dark navy outlines, bright readable colors, warm light from upper left. No real brands, no text, no letters, no numbers, no watermark, no backdrop or checkerboard. Genuine transparent PNG alpha outside object. Product inventory icon. One round vivid red apple, small brown stem and two green leaves, warm cream highlight, no face. Target64x64 pixels. Object maximum dimension56px with 4px clear margin all around. One object centered, slight three-quarter front view, simple deliberate pixel clusters with no tiny noisy details. Entire object must be solid opaque, only exterior transparent. Same consistent modern grocery pixel sprite style. No ground shadow.",
+    "sourceFile": "exec-9684f3f6-2de3-4731-b9a8-475c23b37d6f.png",
+    "generator": "built-in ImageGen"
+  },
+  {
+    "path": "assets/products/chocolate.png",
+    "w": 64,
+    "h": 64,
+    "mode": "sprite",
+    "prompt": "Use case: stylized-concept. ONE isolated production sprite for cozy warehouse order-picking casual game. Modern clean pixel-art / pixel-inspired, crisp intentional pixel clusters, dark navy outlines, bright readable colors, warm light from upper left. No real brands, no text, no letters, no numbers, no watermark, no backdrop or checkerboard. Genuine transparent PNG alpha outside object. Product inventory icon. Horizontal chocolate bar, purple wrapper peeled back on right revealing three chunky brown chocolate squares, small gold band, no text. Target64x64 pixels. Object maximum dimension56px with 4px clear margin all around. One object centered, slight three-quarter front view, simple deliberate pixel clusters with no tiny noisy details. Entire object must be solid opaque, only exterior transparent. Same consistent modern grocery pixel sprite style. No ground shadow.",
+    "sourceFile": "exec-fa080963-d79b-4246-b076-cda46c213dd5.png",
+    "generator": "built-in ImageGen"
+  },
+  {
+    "path": "assets/products/dish-soap.png",
+    "w": 64,
+    "h": 64,
+    "mode": "sprite",
+    "prompt": "Use case: stylized-concept. ONE isolated production sprite for cozy warehouse order-picking casual game. Modern clean pixel-art / pixel-inspired, crisp intentional pixel clusters, dark navy outlines, bright readable colors, warm light from upper left. No real brands, no text, no letters, no numbers, no watermark, no backdrop or checkerboard. Genuine transparent PNG alpha outside object. Product inventory icon. Bright turquoise translucent-looking but opaque rendered dishwashing liquid bottle with slim waist, broad rounded base and vivid orange dispensing cap, small lemon symbol. Target64x64 pixels. Object maximum dimension56px with 4px clear margin all around. One object centered, slight three-quarter front view, simple deliberate pixel clusters with no tiny noisy details. Entire object must be solid opaque, only exterior transparent. Same consistent modern grocery pixel sprite style. No ground shadow.",
+    "sourceFile": "exec-c63b1dff-c67b-493e-a4d0-529281b4f27e.png",
+    "generator": "built-in ImageGen"
+  },
+  {
+    "path": "assets/products/rice.png",
+    "w": 64,
+    "h": 64,
+    "mode": "sprite",
+    "prompt": "Use case: stylized-concept. ONE isolated production sprite for cozy warehouse order-picking casual game. Modern clean pixel-art / pixel-inspired, crisp intentional pixel clusters, dark navy outlines, bright readable colors, warm light from upper left. No real brands, no text, no letters, no numbers, no watermark, no backdrop or checkerboard. Genuine transparent PNG alpha outside object. Product inventory icon. Short wide beige and ochre rice pouch with folded top, large clear-style window showing ivory rice grains, no letters. Target64x64 pixels. Object maximum dimension56px with 4px clear margin all around. One object centered, slight three-quarter front view, simple deliberate pixel clusters with no tiny noisy details. Entire object must be solid opaque, only exterior transparent. Same consistent modern grocery pixel sprite style. No ground shadow.",
+    "sourceFile": "exec-50c80663-c56d-42be-8d57-2bc38b26a656.png",
+    "generator": "built-in ImageGen"
+  },
+  {
+    "path": "assets/products/frozen-berries.png",
+    "w": 64,
+    "h": 64,
+    "mode": "sprite",
+    "prompt": "Use case: stylized-concept. ONE isolated production sprite for cozy warehouse order-picking casual game. Modern clean pixel-art / pixel-inspired, crisp intentional pixel clusters, dark navy outlines, bright readable colors, warm light from upper left. No real brands, no text, no letters, no numbers, no watermark, no backdrop or checkerboard. Genuine transparent PNG alpha outside object. Product inventory icon. Violet and blue sealed frozen berry pouch with crimped top and bottom, large recognizable raspberry and blueberries picture on front, frosty light-blue corner. Target64x64 pixels. Object maximum dimension56px with 4px clear margin all around. One object centered, slight three-quarter front view, simple deliberate pixel clusters with no tiny noisy details. Entire object must be solid opaque, only exterior transparent. Same consistent modern grocery pixel sprite style. No ground shadow.",
+    "sourceFile": "exec-3751518b-a2e6-4f3a-a4ed-979e476cb3a0.png",
+    "generator": "built-in ImageGen"
+  },
+  {
+    "path": "assets/products/shampoo.png",
+    "w": 64,
+    "h": 64,
+    "mode": "sprite",
+    "prompt": "Use case: stylized-concept. ONE isolated production sprite for cozy warehouse order-picking casual game. Modern clean pixel-art / pixel-inspired, crisp intentional pixel clusters, dark navy outlines, bright readable colors, warm light from upper left. No real brands, no text, no letters, no numbers, no watermark, no backdrop or checkerboard. Genuine transparent PNG alpha outside object. Product inventory icon. Tall rounded magenta shampoo bottle with gold flip-top cap, simple ivory swoosh and white droplet symbol, opaque solid body. Target64x64 pixels. Object maximum dimension56px with 4px clear margin all around. One object centered, slight three-quarter front view, simple deliberate pixel clusters with no tiny noisy details. Entire object must be solid opaque, only exterior transparent. Same consistent modern grocery pixel sprite style. No ground shadow.",
+    "sourceFile": "exec-9f96694b-4833-46ba-aa7a-a546c0f8e0f7.png",
+    "generator": "built-in ImageGen"
+  },
+  {
+    "path": "assets/products/batteries.png",
+    "w": 64,
+    "h": 64,
+    "mode": "sprite",
+    "prompt": "Use case: stylized-concept. ONE isolated production sprite for cozy warehouse order-picking casual game. Modern clean pixel-art / pixel-inspired, crisp intentional pixel clusters, dark navy outlines, bright readable colors, warm light from upper left. No real brands, no text, no letters, no numbers, no watermark, no backdrop or checkerboard. Genuine transparent PNG alpha outside object. Product inventory icon. Two AA batteries together in slight three-quarter view, black lower bodies and copper orange tops, clearly visible positive terminals, no text or labels. Target64x64 pixels. Object maximum dimension56px with 4px clear margin all around. One object centered, slight three-quarter front view, simple deliberate pixel clusters with no tiny noisy details. Entire object must be solid opaque, only exterior transparent. Same consistent modern grocery pixel sprite style. No ground shadow.",
+    "sourceFile": "exec-fcf69f6e-f5ac-4ad6-9cc2-4b749de4d659.png",
+    "generator": "built-in ImageGen"
+  },
+  {
+    "path": "assets/environment/floor-strip.png",
+    "w": 512,
+    "h": 128,
+    "mode": "tile",
+    "prompt": "Generate ONE OPAQUE texture asset for a modern clean pixel-art cozy warehouse game. Wide 4:1 canvas, target512x128. Flat full-frame warm gray concrete floor strip, very low contrast, large clean calm areas, one thin straight horizontal joint across entire width. NO objects, no shadows, no vertical joints, no markings, no writing. Seamlessly repeatable horizontally. The left and right edges must be visually identical. This is a FULL CANVAS TEXTURE: absolutely NO TRANSPARENCY ANYWHERE, all pixels opaque, including corners. Do not remove background; the concrete is the image. No checkerboard, no vignette, no edge fading. Opaque RGB PNG.",
+    "sourceFile": "exec-a65edd29-7e9c-488e-8ddb-7e60333c8a6c.png",
+    "generator": "built-in ImageGen"
+  }
+]

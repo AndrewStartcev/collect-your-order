@@ -1,0 +1,491 @@
+{
+  "result": "PASS",
+  "assets": [
+    {
+      "path": "assets/environment/shelf-bay.png",
+      "size": [
+        224,
+        448
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bounds": [
+        4,
+        7,
+        220,
+        448
+      ],
+      "bytes": 103172
+    },
+    {
+      "path": "assets/environment/shelf-header.png",
+      "size": [
+        224,
+        56
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bounds": [
+        3,
+        3,
+        221,
+        53
+      ],
+      "bytes": 14445
+    },
+    {
+      "path": "assets/character/worker-idle.png",
+      "size": [
+        96,
+        128
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bounds": [
+        21,
+        3,
+        75,
+        125
+      ],
+      "bytes": 11398
+    },
+    {
+      "path": "assets/character/worker-pick.png",
+      "size": [
+        96,
+        128
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bounds": [
+        9,
+        3,
+        87,
+        125
+      ],
+      "bytes": 12656
+    },
+    {
+      "path": "assets/character/cart.png",
+      "size": [
+        160,
+        128
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bounds": [
+        4,
+        3,
+        155,
+        125
+      ],
+      "bytes": 27684
+    },
+    {
+      "path": "assets/ui/order-panel.png",
+      "size": [
+        350,
+        750
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bounds": [
+        0,
+        4,
+        350,
+        745
+      ],
+      "bytes": 239067
+    },
+    {
+      "path": "assets/ui/phone-frame.png",
+      "size": [
+        360,
+        750
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bounds": [
+        6,
+        6,
+        353,
+        743
+      ],
+      "bytes": 228002
+    },
+    {
+      "path": "assets/ui/button-primary.png",
+      "size": [
+        300,
+        72
+      ],
+      "alpha": [
+        0,
+        254
+      ],
+      "bounds": [
+        3,
+        3,
+        297,
+        69
+      ],
+      "bytes": 21968
+    },
+    {
+      "path": "assets/ui/icon-star.png",
+      "size": [
+        40,
+        40
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bounds": [
+        3,
+        3,
+        37,
+        36
+      ],
+      "bytes": 1739
+    },
+    {
+      "path": "assets/ui/icon-money.png",
+      "size": [
+        40,
+        40
+      ],
+      "alpha": [
+        0,
+        254
+      ],
+      "bounds": [
+        3,
+        6,
+        37,
+        34
+      ],
+      "bytes": 2323
+    },
+    {
+      "path": "assets/ui/icon-clock.png",
+      "size": [
+        40,
+        40
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bounds": [
+        6,
+        3,
+        34,
+        37
+      ],
+      "bytes": 1973
+    },
+    {
+      "path": "assets/ui/icon-pause.png",
+      "size": [
+        40,
+        40
+      ],
+      "alpha": [
+        0,
+        254
+      ],
+      "bounds": [
+        6,
+        3,
+        33,
+        37
+      ],
+      "bytes": 1431
+    },
+    {
+      "path": "assets/ui/button-primary-hover.png",
+      "size": [
+        300,
+        72
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bounds": [
+        3,
+        3,
+        297,
+        69
+      ],
+      "bytes": 22646
+    },
+    {
+      "path": "assets/ui/button-primary-pressed.png",
+      "size": [
+        300,
+        72
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bounds": [
+        3,
+        3,
+        297,
+        69
+      ],
+      "bytes": 21330
+    },
+    {
+      "path": "assets/products/milk-carton.png",
+      "size": [
+        64,
+        64
+      ],
+      "alpha": [
+        0,
+        254
+      ],
+      "bounds": [
+        16,
+        4,
+        48,
+        60
+      ],
+      "bytes": 3482
+    },
+    {
+      "path": "assets/products/banana.png",
+      "size": [
+        64,
+        64
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bounds": [
+        4,
+        4,
+        60,
+        60
+      ],
+      "bytes": 4889
+    },
+    {
+      "path": "assets/products/toilet-paper.png",
+      "size": [
+        64,
+        64
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bounds": [
+        4,
+        5,
+        60,
+        58
+      ],
+      "bytes": 5657
+    },
+    {
+      "path": "assets/products/dumplings.png",
+      "size": [
+        64,
+        64
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bounds": [
+        8,
+        4,
+        56,
+        60
+      ],
+      "bytes": 6758
+    },
+    {
+      "path": "assets/products/kefir.png",
+      "size": [
+        64,
+        64
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bounds": [
+        19,
+        4,
+        44,
+        60
+      ],
+      "bytes": 3213
+    },
+    {
+      "path": "assets/products/apple.png",
+      "size": [
+        64,
+        64
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bounds": [
+        9,
+        4,
+        54,
+        60
+      ],
+      "bytes": 4933
+    },
+    {
+      "path": "assets/products/chocolate.png",
+      "size": [
+        64,
+        64
+      ],
+      "alpha": [
+        0,
+        254
+      ],
+      "bounds": [
+        4,
+        18,
+        60,
+        45
+      ],
+      "bytes": 3382
+    },
+    {
+      "path": "assets/products/dish-soap.png",
+      "size": [
+        64,
+        64
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bounds": [
+        18,
+        4,
+        46,
+        60
+      ],
+      "bytes": 3531
+    },
+    {
+      "path": "assets/products/rice.png",
+      "size": [
+        64,
+        64
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bounds": [
+        4,
+        4,
+        60,
+        59
+      ],
+      "bytes": 7053
+    },
+    {
+      "path": "assets/products/frozen-berries.png",
+      "size": [
+        64,
+        64
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bounds": [
+        8,
+        4,
+        56,
+        60
+      ],
+      "bytes": 6955
+    },
+    {
+      "path": "assets/products/shampoo.png",
+      "size": [
+        64,
+        64
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "bounds": [
+        19,
+        4,
+        44,
+        60
+      ],
+      "bytes": 3182
+    },
+    {
+      "path": "assets/products/batteries.png",
+      "size": [
+        64,
+        64
+      ],
+      "alpha": [
+        0,
+        254
+      ],
+      "bounds": [
+        13,
+        4,
+        51,
+        60
+      ],
+      "bytes": 4046
+    },
+    {
+      "path": "assets/environment/floor-strip.png",
+      "size": [
+        512,
+        128
+      ],
+      "alpha": [
+        255,
+        255
+      ],
+      "bounds": [
+        0,
+        0,
+        512,
+        128
+      ],
+      "bytes": 87757
+    }
+  ]
+}
