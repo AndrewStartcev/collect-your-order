@@ -43,7 +43,8 @@ export function generateOrder(orderId: number, completedOrders: number): Order {
         (product) =>
           product.category === unavailableProduct.category &&
           product.id !== unavailableProduct.id &&
-          !chosen.some((required) => required.id === product.id),
+          !chosen.some((required) => required.id === product.id) &&
+          !blockedIds.has(product.id),
       ),
     );
 
@@ -59,12 +60,17 @@ export function generateOrder(orderId: number, completedOrders: number): Order {
     shelfIds.add(product.id);
   }
 
+  // Defensive final filter: an unavailable ordered product must never be physically
+  // present on the shelf. This keeps the replacement mechanic honest even if shelf
+  // population logic changes later.
+  const shelfProductIds = shuffle([...shelfIds]).filter((productId) => !blockedIds.has(productId));
+
   const timeLimitSec = clamp(100 + lineCount * 4 - Math.floor(completedOrders / 3) * 4, 55, 110);
 
   return {
     id: orderId,
     lines,
     timeLimitSec,
-    shelfProductIds: shuffle([...shelfIds]),
+    shelfProductIds,
   };
 }
