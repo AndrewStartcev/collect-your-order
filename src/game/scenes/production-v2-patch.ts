@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { ProductionGameSceneV2 } from './ProductionGameSceneV2';
 
-type PatchedScene = ProductionGameSceneV2 & {
+type PatchedScene = Phaser.Scene & {
   __dispatching?: boolean;
   workerSprite: Phaser.GameObjects.Sprite;
   cartSprite: Phaser.GameObjects.Image;
@@ -15,9 +15,9 @@ type PatchedScene = ProductionGameSceneV2 & {
 };
 
 type ScenePrototype = {
-  createAnimations: () => void;
-  startNextOrder: () => void;
-  submitOrder: (timedOut: boolean) => void;
+  createAnimations: (this: PatchedScene) => void;
+  startNextOrder: (this: PatchedScene) => void;
+  submitOrder: (this: PatchedScene, timedOut: boolean) => void;
 };
 
 const prototype = ProductionGameSceneV2.prototype as unknown as ScenePrototype;
@@ -62,7 +62,7 @@ prototype.submitOrder = function submitWithDispatch(this: PatchedScene, timedOut
   const cart = this.cartSprite;
   const countLabel = this.cartCountText;
   const cartItems = this.cartLayer;
-  const shadow = this.children.list.find((child) => {
+  const shadow = this.children.list.find((child: Phaser.GameObjects.GameObject) => {
     const image = child as Phaser.GameObjects.Image;
     return image.texture?.key === 'cart-shadow-v2';
   }) as Phaser.GameObjects.Image | undefined;
